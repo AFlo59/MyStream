@@ -32,6 +32,21 @@ else
     exit 1
 fi
 
+# Créer le fichier .env depuis env.example s'il n'existe pas
+echo ""
+echo "📝 Vérification du fichier .env..."
+if [ ! -f .env ]; then
+    if [ -f env.example ]; then
+        cp env.example .env
+        echo "✓ Fichier .env créé depuis env.example"
+    else
+        echo "⚠️  Attention : env.example n'existe pas, .env ne sera pas créé"
+        echo "   docker-compose pourrait échouer si .env est requis"
+    fi
+else
+    echo "✓ Fichier .env existe déjà"
+fi
+
 # Démarrer les services
 echo ""
 echo "🚀 Démarrage des services..."

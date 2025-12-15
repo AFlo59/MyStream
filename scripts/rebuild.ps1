@@ -34,6 +34,21 @@ if ($LASTEXITCODE -eq 0) {
     exit 1
 }
 
+# Créer le fichier .env depuis env.example s'il n'existe pas
+Write-Host ""
+Write-Host "📝 Vérification du fichier .env..." -ForegroundColor Yellow
+if (-not (Test-Path .env)) {
+    if (Test-Path env.example) {
+        Copy-Item env.example .env
+        Write-Host "✓ Fichier .env créé depuis env.example" -ForegroundColor Green
+    } else {
+        Write-Host "⚠️  Attention : env.example n'existe pas, .env ne sera pas créé" -ForegroundColor Yellow
+        Write-Host "   docker-compose pourrait échouer si .env est requis" -ForegroundColor Yellow
+    }
+} else {
+    Write-Host "✓ Fichier .env existe déjà" -ForegroundColor Green
+}
+
 # Démarrer les services
 Write-Host ""
 Write-Host "🚀 Démarrage des services..." -ForegroundColor Yellow
