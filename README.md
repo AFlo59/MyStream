@@ -75,13 +75,27 @@ docker-compose ps
 
 - Spark Master UI : http://localhost:8080
 
-### 4. Démarrer Jupyter Notebook
+### 4. Accéder à Jupyter Notebook
 
+Jupyter Notebook démarre automatiquement avec le conteneur `spark-jupyter`.
+
+**Accès direct** : http://localhost:8888 (aucun token requis)
+
+**Si besoin de redémarrer manuellement** :
 ```bash
-docker exec -it spark-master jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+docker exec -it spark-jupyter jupyter notebook \
+    --ip=0.0.0.0 \
+    --port=8888 \
+    --no-browser \
+    --allow-root \
+    --notebook-dir=/opt/spark/notebooks
 ```
 
-Puis accéder à : http://localhost:8888
+Ou utiliser le script :
+```bash
+chmod +x scripts/start_jupyter.sh
+./scripts/start_jupyter.sh
+```
 
 ## Utilisation
 
