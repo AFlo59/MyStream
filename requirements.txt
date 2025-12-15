@@ -1,6 +1,7 @@
 # Dépendances Python pour le projet SmartTech Streaming
-pyspark==3.5.0
-delta-spark==3.0.0
+# Note : pyspark est déjà inclus dans l'image apache/spark-py:latest (Spark 3.4.0)
+# Il n'est donc pas listé ici pour éviter les conflits de version
+delta-spark==2.4.0
 kafka-python==2.0.2
 jupyter==1.0.0
 findspark==2.0.1

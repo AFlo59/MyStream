@@ -9,13 +9,15 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-# Installer Jupyter et les packages Python nécessaires
-RUN pip3 install --no-cache-dir \
-    jupyter \
-    delta-spark \
-    kafka-python \
-    findspark \
-    python-dotenv
+# Copier le fichier requirements.txt dans l'image
+COPY requirements.txt /tmp/requirements.txt
+
+# Installer les packages Python depuis requirements.txt
+# Note : pyspark est déjà inclus dans l'image apache/spark-py (Spark 3.4.0)
+# et n'est donc pas dans requirements.txt pour éviter les conflits de version
+# Delta Lake 2.4.0 est compatible avec Spark 3.4.0
+RUN pip3 install --no-cache-dir -r /tmp/requirements.txt && \
+    rm /tmp/requirements.txt
 
 # Créer les répertoires nécessaires
 RUN mkdir -p /opt/spark/data \
