@@ -1,0 +1,9 @@
+# Dépendances Python pour le projet SmartTech Streaming
+pyspark==3.5.0
+delta-spark==3.0.0
+kafka-python==2.0.2
+jupyter==1.0.0
+findspark==2.0.1
+pandas==2.1.0
+numpy==1.24.3
+

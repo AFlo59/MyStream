@@ -1,0 +1,92 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Spark
+spark-warehouse/
+metastore_db/
+derby.log
+*.checkpoint
+*.checkpoint.*
+checkpoints/*
+!checkpoints/.gitkeep
+
+# Delta Lake
+delta/**/*
+!delta/.gitkeep
+!delta/bronze/.gitkeep
+!delta/silver/.gitkeep
+_delta_log/
+
+# Kafka
+kafka-logs/
+zookeeper-data/
+
+# Data (fichiers générés)
+data/*.json
+data/*.parquet
+data/*.csv
+data/*.avro
+
+# Docker
+*.log
+*.log.*
+docker-compose.override.yml
+.docker/
+
+# Secrets et credentials
+.env
+.env.local
+*.key
+*.pem
+*.p12
+secrets/
+credentials/
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Fichiers temporaires
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Sauvegardes
+*.bak
+*.backup
+*~
+
+# Fichiers de configuration locaux
+config.local.*
+settings.local.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.code-workspace
+.project
+.classpath
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
