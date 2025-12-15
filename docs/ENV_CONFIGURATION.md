@@ -1,22 +1,40 @@
 # Configuration des variables d'environnement
 
-## Fichier .env (optionnel)
+## Fichier .env (recommandé)
 
-Pour l'instant, un fichier `.env` n'est **pas strictement nécessaire** car les chemins sont codés en dur dans les notebooks pour Docker. Cependant, voici les variables qui pourraient être utiles si vous souhaitez personnaliser la configuration.
+Un fichier `.env` est **recommandé** pour personnaliser la configuration. Les notebooks utilisent `os.getenv()` pour lire ces variables avec des valeurs par défaut, ce qui permet une grande flexibilité.
+
+**Sans fichier `.env`** : Les notebooks utilisent les valeurs par défaut définies dans le code (`/opt/spark/...`).
+
+**Avec fichier `.env`** : Les variables définies dans `.env` sont injectées automatiquement dans les conteneurs Docker via `docker-compose.yml` et utilisées par les notebooks.
+
+## Création du fichier .env
+
+Pour créer votre fichier `.env`, copiez le fichier `env.example` :
+
+```bash
+# Sur Linux/Mac/WSL
+cp env.example .env
+
+# Sur Windows PowerShell
+Copy-Item env.example .env
+```
+
+Vous pouvez ensuite modifier les valeurs selon vos besoins.
 
 ## Variables recommandées
 
-Créez un fichier `.env` à la racine du projet avec les variables suivantes :
+Le fichier `.env` devrait contenir les variables suivantes :
 
 ```bash
 # ============================================
 # Chemins de données (optionnel - valeurs par défaut dans Docker)
 # ============================================
-DATA_DIR=/opt/bitnami/spark/data
-DELTA_BRONZE_PATH=/opt/bitnami/spark/delta/bronze
-DELTA_SILVER_PATH=/opt/bitnami/spark/delta/silver
-CHECKPOINT_BRONZE_PATH=/opt/bitnami/spark/checkpoints/bronze
-CHECKPOINT_SILVER_PATH=/opt/bitnami/spark/checkpoints/silver
+DATA_DIR=/opt/spark/data
+DELTA_BRONZE_PATH=/opt/spark/delta/bronze
+DELTA_SILVER_PATH=/opt/spark/delta/silver
+CHECKPOINT_BRONZE_PATH=/opt/spark/checkpoints/bronze
+CHECKPOINT_SILVER_PATH=/opt/spark/checkpoints/silver
 
 # ============================================
 # Configuration Spark (optionnel)
@@ -56,17 +74,22 @@ Pour utiliser ces variables dans vos notebooks :
 import os
 
 # Lire une variable avec valeur par défaut
-DATA_DIR = os.getenv('DATA_DIR', '/opt/bitnami/spark/data')
-DELTA_BRONZE_PATH = os.getenv('DELTA_BRONZE_PATH', '/opt/bitnami/spark/delta/bronze')
+DATA_DIR = os.getenv('DATA_DIR', '/opt/spark/data')
+DELTA_BRONZE_PATH = os.getenv('DELTA_BRONZE_PATH', '/opt/spark/delta/bronze')
 ```
 
 ## Note importante
 
-Pour l'instant, ces variables ne sont **pas utilisées** dans les notebooks car les chemins sont directement définis pour Docker. Elles deviendront utiles si vous voulez :
+Ces variables sont **utilisées** dans les notebooks via `os.getenv()` avec des valeurs par défaut. Elles permettent de :
 
-- Personnaliser les chemins selon l'environnement
-- Faciliter le déploiement en production
-- Gérer différentes configurations (dev, staging, prod)
+- ✅ Personnaliser les chemins selon l'environnement
+- ✅ Faciliter le déploiement en production
+- ✅ Gérer différentes configurations (dev, staging, prod)
+- ✅ Utiliser les mêmes notebooks en local et dans Docker
+
+**Dans Docker** : Les variables sont injectées automatiquement depuis le fichier `.env` via `docker-compose.yml` (option `env_file`).
+
+**En local** : Les valeurs par défaut dans le code sont utilisées, ou vous pouvez créer un fichier `.env` et utiliser `python-dotenv` pour le charger.
 
 ## Sécurité
 

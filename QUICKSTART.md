@@ -40,7 +40,7 @@ docker-compose up -d
 python scripts/generate_sensor_data.py
 
 # Ou depuis le conteneur Docker
-docker exec -it spark-master python3 /opt/bitnami/spark/scripts/generate_sensor_data.py
+docker exec -it spark-jupyter python3 /opt/spark/scripts/generate_sensor_data.py
 ```
 
 ### 3. Démarrer Jupyter Notebook
@@ -51,14 +51,16 @@ chmod +x scripts/start_jupyter.sh
 ./scripts/start_jupyter.sh
 ```
 
-**Option B : Manuellement**
+**Option B : Manuellement (si nécessaire)**
 ```bash
-docker exec -it spark-master jupyter notebook \
+# Jupyter démarre automatiquement avec le conteneur spark-jupyter
+# Si besoin de redémarrer manuellement :
+docker exec -it spark-jupyter jupyter notebook \
     --ip=0.0.0.0 \
     --port=8888 \
     --no-browser \
     --allow-root \
-    --notebook-dir=/opt/bitnami/spark/notebooks
+    --notebook-dir=/opt/spark/notebooks
 ```
 
 ### 4. Accéder aux interfaces
@@ -93,10 +95,10 @@ Les données générées sont au format JSON avec la structure suivante :
 
 ## Chemins importants (dans le conteneur Docker)
 
-- **Données d'entrée** : `/opt/bitnami/spark/data`
-- **Delta Lake Bronze** : `/opt/bitnami/spark/delta/bronze`
-- **Delta Lake Silver** : `/opt/bitnami/spark/delta/silver`
-- **Checkpoints** : `/opt/bitnami/spark/checkpoints`
+- **Données d'entrée** : `/opt/spark/data`
+- **Delta Lake Bronze** : `/opt/spark/delta/bronze`
+- **Delta Lake Silver** : `/opt/spark/delta/silver`
+- **Checkpoints** : `/opt/spark/checkpoints`
 
 ## Commandes utiles
 

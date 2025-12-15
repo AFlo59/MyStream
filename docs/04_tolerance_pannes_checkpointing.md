@@ -165,7 +165,7 @@ print(query.isActive)
 
 ```python
 # Checkpoint dédié pour la pipeline Bronze
-CHECKPOINT_PATH = "/opt/bitnami/spark/checkpoints/bronze"
+CHECKPOINT_PATH = "/opt/spark/checkpoints/bronze"
 
 query = bronze_stream.writeStream \
     .format("delta") \
@@ -184,7 +184,7 @@ query = bronze_stream.writeStream \
 
 ```python
 # Checkpoint gère automatiquement les offsets Kafka
-CHECKPOINT_PATH = "/opt/bitnami/spark/checkpoints/silver"
+CHECKPOINT_PATH = "/opt/spark/checkpoints/silver"
 
 query = kafka_stream.writeStream \
     .format("delta") \
