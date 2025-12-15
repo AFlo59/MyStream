@@ -97,7 +97,7 @@ if __name__ == "__main__":
     try:
         from dotenv import load_dotenv
         # Essayer de charger .env seulement si on est en local (pas dans Docker)
-        if not os.path.exists("/opt/bitnami/spark"):
+        if not os.path.exists("/opt/spark"):
             # On est en local, charger le .env
             project_root = Path(__file__).parent.parent
             env_path = project_root / ".env"

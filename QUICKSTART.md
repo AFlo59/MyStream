@@ -10,14 +10,24 @@
 
 ### 1. Construire et démarrer l'environnement Docker
 
-**Option A : Avec WSL Ubuntu**
+**Option A : Avec WSL Ubuntu (première fois)**
 ```bash
 cd /mnt/c/Users/red59/Documents/MyStream
 chmod +x scripts/setup.sh
 ./scripts/setup.sh
 ```
 
-**Option B : Avec PowerShell**
+**Option B : Rebuild complet (recommandé)**
+```bash
+# Avec WSL Ubuntu
+chmod +x scripts/rebuild.sh
+./scripts/rebuild.sh
+
+# Ou avec PowerShell
+.\scripts\rebuild.ps1
+```
+
+**Option C : Avec PowerShell (première fois)**
 ```powershell
 docker build -t smarttech-spark:latest .
 docker-compose up -d

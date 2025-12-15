@@ -8,7 +8,7 @@ docker exec -it spark-master jupyter notebook \
     --port=8888 \
     --no-browser \
     --allow-root \
-    --notebook-dir=/opt/bitnami/spark/notebooks
+    --notebook-dir=/opt/spark/notebooks
 
 echo ""
 echo "✓ Jupyter Notebook accessible sur : http://localhost:8888"

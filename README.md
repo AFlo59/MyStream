@@ -40,6 +40,27 @@ MyStream/
 
 ### 1. Démarrer les services Spark
 
+**Première installation :**
+```bash
+# Avec WSL Ubuntu
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+
+# Ou avec PowerShell
+.\scripts\rebuild.ps1
+```
+
+**Rebuild complet (après modifications) :**
+```bash
+# Avec WSL Ubuntu
+chmod +x scripts/rebuild.sh
+./scripts/rebuild.sh
+
+# Ou avec PowerShell
+.\scripts\rebuild.ps1
+```
+
+**Démarrage simple (si l'image existe déjà) :**
 ```bash
 docker-compose up -d
 ```
