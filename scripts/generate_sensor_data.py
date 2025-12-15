@@ -7,7 +7,7 @@ Simule un flux continu de données JSON pour la pipeline Bronze
 import json
 import random
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 def generate_sensor_data(sensor_id: str, base_timestamp: datetime) -> dict:
@@ -40,9 +40,16 @@ def generate_sensor_data(sensor_id: str, base_timestamp: datetime) -> dict:
         else:
             energy_consumption = random.uniform(800, 1200)  # Consommation anormale
     
+    # S'assurer que le timestamp est en UTC et formaté avec 'Z' pour ISO 8601
+    # Si base_timestamp n'a pas de timezone, on l'assume UTC
+    if base_timestamp.tzinfo is None:
+        timestamp_utc = base_timestamp.replace(tzinfo=timezone.utc)
+    else:
+        timestamp_utc = base_timestamp.astimezone(timezone.utc)
+    
     return {
         "sensor_id": sensor_id,
-        "timestamp": base_timestamp.isoformat(),
+        "timestamp": timestamp_utc.isoformat().replace('+00:00', 'Z'),  # Format ISO 8601 avec 'Z' pour UTC
         "temperature": temperature,
         "humidity": humidity,
         "energy_consumption": energy_consumption,
@@ -66,7 +73,8 @@ def generate_json_files(output_dir: Path, num_files: int = 10, records_per_file:
     # Liste des capteurs
     sensor_ids = [f"sensor_{i:03d}" for i in range(1, 21)]  # 20 capteurs
     
-    base_time = datetime.now() - timedelta(hours=1)
+    # Utiliser UTC pour la cohérence avec le format ISO 8601
+    base_time = datetime.now(timezone.utc) - timedelta(hours=1)
     
     for file_num in range(1, num_files + 1):
         filename = output_dir / f"sensor_data_{file_num:04d}.json"
