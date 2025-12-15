@@ -15,7 +15,8 @@ RUN pip3 install --no-cache-dir \
     pyspark \
     delta-spark \
     kafka-python \
-    findspark
+    findspark \
+    python-dotenv
 
 # Créer les répertoires nécessaires
 RUN mkdir -p /opt/bitnami/spark/data \

@@ -90,9 +90,37 @@ def generate_json_files(output_dir: Path, num_files: int = 10, records_per_file:
     print(f"\n✓ {num_files} fichiers générés dans {output_dir}")
 
 if __name__ == "__main__":
-    # Chemin relatif au répertoire du projet
+    import os
+    
+    # Dans Docker : les variables sont injectées par docker-compose depuis .env
+    # En local : utiliser load_dotenv() si nécessaire
+    try:
+        from dotenv import load_dotenv
+        # Essayer de charger .env seulement si on est en local (pas dans Docker)
+        if not os.path.exists("/opt/bitnami/spark"):
+            # On est en local, charger le .env
+            project_root = Path(__file__).parent.parent
+            env_path = project_root / ".env"
+            if env_path.exists():
+                load_dotenv(env_path)
+    except ImportError:
+        # python-dotenv pas installé, continuer avec les variables d'environnement système
+        pass
+    
+    # Utiliser DATA_DIR depuis les variables d'environnement ou valeur par défaut
     project_root = Path(__file__).parent.parent
-    data_dir = project_root / "data"
+    data_dir_env = os.getenv("DATA_DIR")
+    
+    if data_dir_env:
+        # Si DATA_DIR est un chemin absolu (Docker), utiliser tel quel
+        if os.path.isabs(data_dir_env):
+            data_dir = Path(data_dir_env)
+        else:
+            # Chemin relatif, construire depuis la racine du projet
+            data_dir = project_root / data_dir_env.lstrip("/")
+    else:
+        # Valeur par défaut
+        data_dir = project_root / "data"
     
     print("Génération de données de test IoT pour SmartTech...")
     print(f"Répertoire de sortie : {data_dir}\n")

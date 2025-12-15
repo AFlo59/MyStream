@@ -5,6 +5,8 @@ services:
     image: smarttech-spark:latest
     container_name: spark-master
     hostname: spark-master
+    env_file:
+      - .env
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -30,6 +32,8 @@ services:
     hostname: spark-worker
     depends_on:
       - spark-master
+    env_file:
+      - .env
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
