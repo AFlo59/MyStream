@@ -34,15 +34,24 @@ COPY scripts/ /opt/spark/scripts/
 # Rendre les scripts exécutables
 RUN chmod +x /opt/spark/scripts/*.sh 2>/dev/null || true
 
-# Pré-télécharger le package spark-sql-kafka pour éviter les problèmes de téléchargement à l'exécution
+# Pré-télécharger le package spark-sql-kafka et ses dépendances pour éviter les problèmes de téléchargement à l'exécution
 # Télécharger directement les JARs depuis Maven Central
 # Copier dans /opt/spark/jars/ (où Spark cherche les JARs) ET dans le cache Ivy
+# spark-sql-kafka-0-10_2.12:3.4.0 dépend de kafka-clients:3.3.2
 RUN mkdir -p /root/.ivy2/jars /opt/spark/jars && \
+    # Télécharger spark-sql-kafka
     wget -q --no-check-certificate https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.4.0/spark-sql-kafka-0-10_2.12-3.4.0.jar -O /tmp/spark-sql-kafka-0-10_2.12-3.4.0.jar && \
+    # Télécharger kafka-clients (dépendance requise)
+    wget -q --no-check-certificate https://repo1.maven.org/maven2/org/apache/kafka/kafka-clients/3.3.2/kafka-clients-3.3.2.jar -O /tmp/kafka-clients-3.3.2.jar && \
+    # Copier dans /opt/spark/jars/ (où Spark cherche les JARs)
     cp /tmp/spark-sql-kafka-0-10_2.12-3.4.0.jar /opt/spark/jars/ && \
+    cp /tmp/kafka-clients-3.3.2.jar /opt/spark/jars/ && \
+    # Copier dans le cache Ivy aussi
     cp /tmp/spark-sql-kafka-0-10_2.12-3.4.0.jar /root/.ivy2/jars/ && \
-    rm /tmp/spark-sql-kafka-0-10_2.12-3.4.0.jar && \
-    echo "✓ Package spark-sql-kafka pré-téléchargé dans /opt/spark/jars/ et cache Ivy" || echo "⚠️  Échec du téléchargement (sera téléchargé à l'exécution)"
+    cp /tmp/kafka-clients-3.3.2.jar /root/.ivy2/jars/ && \
+    # Nettoyer
+    rm /tmp/spark-sql-kafka-0-10_2.12-3.4.0.jar /tmp/kafka-clients-3.3.2.jar && \
+    echo "✓ Packages Kafka pré-téléchargés (spark-sql-kafka + kafka-clients) dans /opt/spark/jars/ et cache Ivy" || echo "⚠️  Échec du téléchargement (sera téléchargé à l'exécution)"
 
 # Configurer les variables d'environnement pour Delta Lake et Kafka
 ENV PYSPARK_PYTHON=python3
