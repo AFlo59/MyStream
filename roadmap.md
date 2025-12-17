@@ -20,52 +20,52 @@ Réaliser une veille approfondie sur les concepts fondamentaux du streaming avec
 
 ### Tâches
 
-- [ ] **1.1 Concepts fondamentaux du streaming structuré**
-  - [ ] Comprendre le principe du streaming structuré
-  - [ ] Étudier la différence entre batch et streaming processing
-  - [ ] Analyser le modèle de programmation unifié (Dataset/DataFrame API)
+- [x] **1.1 Concepts fondamentaux du streaming structuré**
+  - [x] Comprendre le principe du streaming structuré
+  - [x] Étudier la différence entre batch et streaming processing
+  - [x] Analyser le modèle de programmation unifié (Dataset/DataFrame API)
 
-- [ ] **1.2 Lecture et écriture de flux**
-  - [ ] Explorer les sources supportées (Kafka, fichiers, socket, etc.)
-  - [ ] Comprendre les sinks disponibles (Delta Lake, fichiers, console, etc.)
-  - [ ] Étudier les options de configuration pour chaque source/sink
+- [x] **1.2 Lecture et écriture de flux**
+  - [x] Explorer les sources supportées (Kafka, fichiers, socket, etc.)
+  - [x] Comprendre les sinks disponibles (Delta Lake, fichiers, console, etc.)
+  - [x] Étudier les options de configuration pour chaque source/sink
 
-- [ ] **1.3 Modes de sortie (Output Modes)**
-  - [ ] Append mode : ajout de nouvelles lignes uniquement
-  - [ ] Update mode : mise à jour des lignes modifiées
-  - [ ] Complete mode : réécriture complète de la table de sortie
-  - [ ] Comprendre les cas d'usage de chaque mode
+- [x] **1.3 Modes de sortie (Output Modes)**
+  - [x] Append mode : ajout de nouvelles lignes uniquement
+  - [x] Update mode : mise à jour des lignes modifiées
+  - [x] Complete mode : réécriture complète de la table de sortie
+  - [x] Comprendre les cas d'usage de chaque mode
 
-- [ ] **1.4 Tolérance aux pannes et checkpointing**
-  - [ ] Comprendre le mécanisme de checkpointing
-  - [ ] Étudier les Write-Ahead Logs (WAL)
-  - [ ] Analyser les garanties exactly-once vs at-least-once
-  - [ ] Configurer les chemins de checkpoint
+- [x] **1.4 Tolérance aux pannes et checkpointing**
+  - [x] Comprendre le mécanisme de checkpointing
+  - [x] Étudier les Write-Ahead Logs (WAL)
+  - [x] Analyser les garanties exactly-once vs at-least-once
+  - [x] Configurer les chemins de checkpoint
 
-- [ ] **1.5 Triggers**
-  - [ ] ProcessingTime trigger : traitement périodique
-  - [ ] Once trigger : traitement unique
-  - [ ] Continuous trigger : traitement continu (low-latency)
-  - [ ] Choisir le trigger adapté selon les besoins de latence
+- [x] **1.5 Triggers**
+  - [x] ProcessingTime trigger : traitement périodique
+  - [x] Once trigger : traitement unique
+  - [x] Continuous trigger : traitement continu (low-latency)
+  - [x] Choisir le trigger adapté selon les besoins de latence
 
-- [ ] **1.6 Fenêtres temporelles (Windowing)**
-  - [ ] Comprendre le concept de windowing
-  - [ ] Étudier les watermarks pour gérer les données tardives
-  - [ ] Analyser les agrégations sur fenêtres glissantes/fixées
-  - [ ] Cas d'usage IoT : agrégations par fenêtre temporelle
+- [x] **1.6 Fenêtres temporelles (Windowing)**
+  - [x] Comprendre le concept de windowing
+  - [x] Étudier les watermarks pour gérer les données tardives
+  - [x] Analyser les agrégations sur fenêtres glissantes/fixées
+  - [x] Cas d'usage IoT : agrégations par fenêtre temporelle
 
-- [ ] **1.7 Architecture Médaillon (Medallion Architecture)**
-  - [ ] **Bronze** : données brutes ingérées
-  - [ ] **Silver** : données nettoyées et validées
-  - [ ] **Gold** : données agrégées et optimisées pour l'analyse
-  - [ ] Comprendre le flux de données entre les niveaux
-  - [ ] Adapter cette architecture au cas SmartTech
+- [x] **1.7 Architecture Médaillon (Medallion Architecture)**
+  - [x] **Bronze** : données brutes ingérées
+  - [x] **Silver** : données nettoyées et validées
+  - [x] **Gold** : données agrégées et optimisées pour l'analyse
+  - [x] Comprendre le flux de données entre les niveaux
+  - [x] Adapter cette architecture au cas SmartTech
 
-- [ ] **1.8 Synthèse et documentation**
-  - [ ] Rédiger une synthèse claire et structurée (PDF)
-  - [ ] Expliquer l'utilité de chaque concept dans le contexte IoT SmartTech
-  - [ ] Inclure des schémas/diagrammes pour illustrer les concepts
-  - [ ] Préparer la présentation orale
+- [x] **1.8 Synthèse et documentation**
+  - [x] Rédiger une synthèse claire et structurée (PDF)
+  - [x] Expliquer l'utilité de chaque concept dans le contexte IoT SmartTech
+  - [x] Inclure des schémas/diagrammes pour illustrer les concepts
+  - [x] Préparer la présentation orale
 
 ---
 
@@ -137,85 +137,87 @@ Mettre en place un flux de données continu avec Kafka, consommer avec Spark Str
 
 #### Tâches
 
-- [ ] **2.2.1 Installation et configuration de Kafka**
-  - [ ] Installer Apache Kafka (on premise)
-  - [ ] Démarrer Zookeeper et Kafka broker
-  - [ ] Créer un topic dédié pour les données IoT
-  - [ ] Configurer les partitions et la réplication
-  - [ ] Vérifier la connectivité Kafka
+- [x] **2.2.1 Installation et configuration de Kafka**
+  - [x] Installer Apache Kafka (on premise)
+  - [x] Démarrer Zookeeper et Kafka broker
+  - [x] Créer un topic dédié pour les données IoT
+  - [x] Configurer les partitions et la réplication
+  - [x] Vérifier la connectivité Kafka
 
-- [ ] **2.2.2 Comprendre les concepts Kafka**
-  - [ ] **Offsets** : comprendre le mécanisme de suivi de position dans le topic
-  - [ ] **Partitions** : comprendre la distribution des données et le parallélisme
-  - [ ] **Consumer Groups** : comprendre la consommation distribuée et le rééquilibrage
-  - [ ] Documenter l'intérêt d'un message broker dans une architecture temps réel
+- [x] **2.2.2 Comprendre les concepts Kafka**
+  - [x] **Offsets** : comprendre le mécanisme de suivi de position dans le topic
+  - [x] **Partitions** : comprendre la distribution des données et le parallélisme
+  - [x] **Consumer Groups** : comprendre la consommation distribuée et le rééquilibrage
+  - [x] Documenter l'intérêt d'un message broker dans une architecture temps réel
 
-- [ ] **2.2.3 Développement du simulateur de capteurs (Producer)**
-  - [ ] Créer un script Python pour produire des messages dans Kafka
-  - [ ] Simuler des données IoT réalistes :
+- [x] **2.2.3 Développement du simulateur de capteurs (Producer)**
+  - [x] Créer un script Python pour produire des messages dans Kafka
+  - [x] Simuler des données IoT réalistes :
     - Générer des mesures de température, humidité, consommation d'énergie
     - Inclure des timestamps cohérents
     - Optionnel : simuler des anomalies périodiques
-  - [ ] Configurer le producer Kafka avec les bonnes pratiques
-  - [ ] Tester la production de messages
+  - [x] Configurer le producer Kafka avec les bonnes pratiques
+  - [x] Tester la production de messages
 
-- [ ] **2.2.4 Configuration de Spark pour Kafka**
-  - [ ] Ajouter la dépendance `spark-sql-kafka` au projet
-  - [ ] Configurer la connexion aux brokers Kafka
-  - [ ] Comprendre les options de configuration Kafka (bootstrap.servers, subscribe, etc.)
+- [x] **2.2.4 Configuration de Spark pour Kafka**
+  - [x] Ajouter la dépendance `spark-sql-kafka` au projet
+  - [x] Configurer la connexion aux brokers Kafka
+  - [x] Comprendre les options de configuration Kafka (bootstrap.servers, subscribe, etc.)
 
-- [ ] **2.2.5 Lecture du flux Kafka avec Spark**
-  - [ ] Configurer la source Kafka dans Spark Structured Streaming
-  - [ ] S'abonner au topic approprié
-  - [ ] Parser les messages JSON reçus
-  - [ ] Gérer les offsets (startingOffsets, etc.)
+- [x] **2.2.5 Lecture du flux Kafka avec Spark**
+  - [x] Configurer la source Kafka dans Spark Structured Streaming
+  - [x] S'abonner au topic approprié
+  - [x] Parser les messages JSON reçus
+  - [x] Gérer les offsets (startingOffsets, etc.)
 
-- [ ] **2.2.6 Transformations et normalisation**
-  - [ ] Nettoyer les données (plus approfondi que Bronze)
-  - [ ] Normaliser les formats de données
-  - [ ] Valider la cohérence des données
-  - [ ] Enrichir les données si nécessaire
-  - [ ] Appliquer des transformations métier spécifiques
+- [x] **2.2.6 Transformations et normalisation**
+  - [x] Nettoyer les données (plus approfondi que Bronze)
+  - [x] Normaliser les formats de données
+  - [x] Valider la cohérence des données
+  - [x] Enrichir les données si nécessaire
+  - [x] Appliquer des transformations métier spécifiques
 
-- [ ] **2.2.7 Écriture dans Delta Lake (Silver)**
-  - [ ] Configurer l'écriture vers Delta Lake (niveau Silver)
-  - [ ] Définir le chemin de stockage distinct du Bronze
-  - [ ] Configurer le mode d'écriture approprié
-  - [ ] Optimiser les partitions pour les requêtes
+- [x] **2.2.7 Écriture dans Delta Lake (Silver)**
+  - [x] Configurer l'écriture vers Delta Lake (niveau Silver)
+  - [x] Définir le chemin de stockage distinct du Bronze
+  - [x] Configurer le mode d'écriture approprié
+  - [x] Optimiser les partitions pour les requêtes
 
-- [ ] **2.2.8 Configuration avancée**
-  - [ ] Configurer les checkpoints pour la pipeline Kafka
-  - [ ] Gérer les offsets Kafka via les checkpoints
-  - [ ] Configurer les triggers appropriés (ProcessingTime)
-  - [ ] Tester la tolérance aux pannes
+- [x] **2.2.8 Configuration avancée**
+  - [x] Configurer les checkpoints pour la pipeline Kafka
+  - [x] Gérer les offsets Kafka via les checkpoints
+  - [x] Configurer les triggers appropriés (ProcessingTime)
+  - [x] Tester la tolérance aux pannes
 
-- [ ] **2.2.9 Notebook de démonstration**
-  - [ ] Créer un notebook structuré et documenté
-  - [ ] Documenter le rôle de Kafka dans l'architecture
-  - [ ] Expliquer les offsets, partitions, consumer groups
-  - [ ] Inclure des métriques de monitoring si possible
-  - [ ] Tester l'exécution complète de la pipeline
+- [x] **2.2.9 Notebook de démonstration**
+  - [x] Créer un notebook structuré et documenté
+  - [x] Documenter le rôle de Kafka dans l'architecture
+  - [x] Expliquer les offsets, partitions, consumer groups
+  - [x] Inclure des métriques de monitoring si possible
+  - [x] Tester l'exécution complète de la pipeline
 
-- [ ] **2.2.10 Documentation et scripts**
-  - [ ] Documenter le script de production de données (simulateur)
-  - [ ] Créer un README avec les instructions d'utilisation
-  - [ ] Documenter les configurations nécessaires
-  - [ ] Préparer la démonstration orale
+- [x] **2.2.10 Documentation et scripts**
+  - [x] Documenter le script de production de données (simulateur)
+  - [x] Créer un README avec les instructions d'utilisation
+  - [x] Documenter les configurations nécessaires
+  - [x] Préparer la démonstration orale
 
 ---
 
 ## Livrables finaux
 
 ### Partie 1 : Veille
-- [ ] Synthèse PDF claire et structurée
-- [ ] Présentation orale préparée
+- [x] Synthèse PDF claire et structurée (docs/*.md)
+- [x] Présentation orale préparée
 
 ### Partie 2 : Mise en pratique
-- [ ] Notebook 2.1 : Pipeline simple (JSON → Delta Bronze)
-- [ ] Notebook 2.2 : Pipeline avancée (Kafka → Delta Silver)
-- [ ] Script simulateur de capteurs Kafka
-- [ ] README avec instructions d'utilisation
-- [ ] Présentation orale avec démonstration
+- [x] Notebook 2.1 : Pipeline Bronze (JSON → Delta Bronze) - Données brutes
+- [x] Notebook 2.2 : Pipeline Silver (Kafka → Delta Silver) - Données nettoyées
+- [x] Notebook 2.3 : Pipeline Gold (Silver → Delta Gold) - Données agrégées
+- [x] Script simulateur de capteurs Kafka (scripts/kafka_sensor_producer.py)
+- [x] Architecture Médaillon stricte (Bronze brut → Silver transformé → Gold agrégé)
+- [x] README avec instructions d'utilisation
+- [x] Présentation orale avec démonstration
 
 ---
 

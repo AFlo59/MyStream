@@ -29,6 +29,15 @@ docker build -t smarttech-spark:latest --no-cache .
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "✓ Image construite avec succès" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "🔍 Vérification du package Kafka pré-téléchargé..." -ForegroundColor Yellow
+    # Vérifier que le JAR Kafka est présent dans l'image
+    $kafkaJar = docker run --rm smarttech-spark:latest ls -lh /opt/spark/jars/spark-sql-kafka-0-10_2.12-3.4.0.jar 2>$null
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "✓ Package Kafka trouvé dans /opt/spark/jars/" -ForegroundColor Green
+    } else {
+        Write-Host "⚠️  Package Kafka non trouvé (sera téléchargé à l'exécution)" -ForegroundColor Yellow
+    }
 } else {
     Write-Host "❌ Erreur lors de la construction de l'image" -ForegroundColor Red
     exit 1

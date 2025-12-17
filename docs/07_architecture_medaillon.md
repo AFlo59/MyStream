@@ -227,9 +227,16 @@ Fichiers JSON → Spark Streaming → Delta Lake Bronze
 - Checkpoint : `/checkpoints/bronze`
 
 **Données stockées** :
-- Toutes les mesures brutes
-- Métadonnées d'ingestion
-- Pas de transformation (sauf validation basique)
+- Toutes les mesures brutes (même invalides)
+- Métadonnées d'ingestion (timestamp, source_format, pipeline_version)
+- Normalisation minimale de schéma (compatibilité)
+- Format original préservé (timestamp_string)
+
+**❌ Transformations NON effectuées en Bronze** :
+- Filtrage strict des valeurs → Silver
+- Validation approfondie → Silver
+- Colonnes calculées métier → Silver
+- Agrégations → Gold
 
 ### Phase 2.2 : Silver Layer
 
@@ -247,26 +254,34 @@ Kafka → Spark Streaming → Transformations → Delta Lake Silver
 - Checkpoint : `/checkpoints/silver`
 
 **Transformations** :
-- Nettoyage des valeurs nulles
-- Validation des plages (température, humidité)
-- Normalisation des timestamps
-- Enrichissement avec statuts calculés
+- Nettoyage approfondi des valeurs nulles
+- Validation stricte des plages (température, humidité, énergie)
+- Normalisation approfondie des timestamps
+- Filtrage des données invalides
+- Enrichissement avec colonnes calculées métier (temp_status, energy_status)
+- Score de qualité des données (data_quality_score)
+- Statuts de validation (temperature_status, humidity_status, energy_status)
 
-### Phase 3 (futur) : Gold Layer
+### Phase 2.3 : Gold Layer
 
-**Objectif** : Créer des vues analytiques optimisées
+**Objectif** : Créer des vues analytiques optimisées avec agrégations
 
-**Pipelines possibles** :
+**Pipeline** :
 ```
-Silver → Agrégations horaires → Gold/HourlyStats
-Silver → Agrégations par bâtiment → Gold/BuildingStats
-Silver → Détection anomalies → Gold/Anomalies
+Silver (Delta Lake) → Spark Streaming → Agrégations → Gold (Delta Lake)
 ```
+
+**Agrégations implémentées** :
+- **Agrégations horaires** : Moyennes, min, max par bâtiment et par heure
+- **Statistiques par capteur** : Stats sur fenêtres glissantes (1h, slide 30min)
+- **KPIs quotidiens** : Consommation totale, taux d'anomalies, capteurs actifs
 
 **Caractéristiques** :
 - Format : Données agrégées
-- Mode : Complete (pour agrégations)
-- Optimisations : Z-ordering, compaction
+- Mode : Complete (pour agrégations avec fenêtres)
+- Windowing : Fenêtres temporelles (horaires, quotidiennes)
+- Watermarks : Gestion des données tardives (1 heure)
+- Optimisations : Partitionnement par building_id
 - Schémas dénormalisés pour performance
 
 ## Bonnes pratiques

@@ -7,6 +7,8 @@ USER root
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
+    wget \
+    netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
 # Copier le fichier requirements.txt dans l'image
@@ -26,10 +28,27 @@ RUN mkdir -p /opt/spark/data \
     /opt/spark/scripts \
     /opt/spark/delta
 
-# Configurer les variables d'environnement pour Delta Lake
+# Copier les scripts dans l'image
+COPY scripts/ /opt/spark/scripts/
+
+# Rendre les scripts exécutables
+RUN chmod +x /opt/spark/scripts/*.sh 2>/dev/null || true
+
+# Pré-télécharger le package spark-sql-kafka pour éviter les problèmes de téléchargement à l'exécution
+# Télécharger directement les JARs depuis Maven Central
+# Copier dans /opt/spark/jars/ (où Spark cherche les JARs) ET dans le cache Ivy
+RUN mkdir -p /root/.ivy2/jars /opt/spark/jars && \
+    wget -q --no-check-certificate https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.4.0/spark-sql-kafka-0-10_2.12-3.4.0.jar -O /tmp/spark-sql-kafka-0-10_2.12-3.4.0.jar && \
+    cp /tmp/spark-sql-kafka-0-10_2.12-3.4.0.jar /opt/spark/jars/ && \
+    cp /tmp/spark-sql-kafka-0-10_2.12-3.4.0.jar /root/.ivy2/jars/ && \
+    rm /tmp/spark-sql-kafka-0-10_2.12-3.4.0.jar && \
+    echo "✓ Package spark-sql-kafka pré-téléchargé dans /opt/spark/jars/ et cache Ivy" || echo "⚠️  Échec du téléchargement (sera téléchargé à l'exécution)"
+
+# Configurer les variables d'environnement pour Delta Lake et Kafka
 ENV PYSPARK_PYTHON=python3
 ENV PYSPARK_DRIVER_PYTHON=python3
 # SPARK_HOME est déjà défini dans l'image apache/spark-py
+# Le package spark-sql-kafka est maintenant pré-téléchargé dans l'image
 
 # Exposer les ports
 EXPOSE 8080 7077 8888
